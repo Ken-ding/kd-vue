@@ -75,11 +75,13 @@ export function createASTElement (
 
 /**
  * Convert HTML string to AST.
+ * 转化HTML字符模板为抽象语法是
  */
 export function parse (
   template: string,
   options: CompilerOptions
 ): ASTElement | void {
+    
   warn = options.warn || baseWarn
 
   platformIsPreTag = options.isPreTag || no
@@ -296,7 +298,6 @@ export function parse (
         closeElement(element)
       }
     },
-
     end (tag, start, end) {
       const element = stack[stack.length - 1]
       // pop stack
@@ -307,7 +308,6 @@ export function parse (
       }
       closeElement(element)
     },
-
     chars (text: string, start: number, end: number) {
       if (!currentParent) {
         if (process.env.NODE_ENV !== 'production') {

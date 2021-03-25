@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <ul :class="bindCls" class="list" v-if="isShow">
+            <li v-for="(item,index) in data" @click="clickItem(index)">{{item}}:{{index}}</li>
+        </ul>
+    </div>
+</body>
+
+</html>
+<script>
+    var vm = new Vue({
+        functional: true,
+        el: "#app",
+        data: {
+            data: ["a", "b", "c", "d", "e"],
+            isShow: true
+        }
+    });
+</script>
+<script>
+    let obj = {
+        type: 1,
+        tag: "div",
+        attrsList: [{ name: "id", value: "app", dynamic: undefined, start: 5, end: 13 }],
+        attrsMap: { id: "app" },
+        attrs: { name: "id", value: "app", dynamic: undefined, start: 5, end: 13 },
+        rawAttrsMap: { id: { name: "id", value: "app", start: 5, end: 13 } },
+        end: 222,
+        start: 0,
+        parent: undefined,
+        plain: false,
+        children: [
+            {
+                type: 1,
+                tag: "ul",
+                attrsList: [],
+                attrsMap: {},
+                rawAttrsMap: {},
+                end: 125,
+                start: 23,
+                parent: "parent",
+                plain: false,
+                children: [
+                    {
+                        type: 1,
+                        tag: "li",
+                        attrsList: [],
+                        attrsMap: {},
+                        rawAttrsMap: {},
+                        end: 125,
+                        start: 23,
+                        parent: "parent",
+                        plain: false,
+                        children: []
+                    }
+                ]
+            }
+        ]
+    }
+</script>
