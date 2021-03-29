@@ -1,0 +1,44 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app"></div>
+</body>
+
+</html>
+<script>
+    let Child = {
+        template: '<div class="child">' +
+            '<slot name="aa" text="Hello " :msg="msg"></slot>' +
+            '</div>',
+        data() {
+            return {
+                msg: 'Vue'
+            }
+        }
+    }
+
+    let vm = new Vue({
+        el: '#app',
+        template: '<div>' +
+            '<child>' +
+            '<template slot="aa" slot-scope="props">' +
+            '<p>Hello from parent</p>' +
+            '<p>{{ props.text + props.msg}}</p>' +
+            '</template>' +
+            '</child>' +
+            '<div>123</div>' +
+            '</div>',
+        components: {
+            Child
+        }
+    })
+</script>

@@ -1,0 +1,86 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../../vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <keep-alive>
+            <Demo1 v-if="show"></Demo1>
+        </keep-alive>
+        <br>
+        <div>{{aa}}</div>
+        <button @click="ch">改变</button>
+    </div>
+</body>
+
+</html>
+<script type="text/x-template" id="demo1">
+    <div>
+        我是组件{{name}}
+        <div>{{count}}</div>
+        <button @click="change">增加</button>
+    </div>
+</script>
+
+<script type="text/x-template" id="demo2">
+    <div>
+        我是组件{{name}}
+        <div>{{count}}</div>
+        <button @click="change">增加</button>
+    </div>
+</script>
+
+<script>
+    var Demo1 = {
+        template: '#demo1',
+        data() {
+            return {
+                name: "demo1",
+                count: 0
+            }
+        },
+        methods: {
+            change() {
+                // this.count = ++this.count
+            }
+        }
+    }
+    var Demo2 = {
+        template: '#demo2',
+        data() {
+            return {
+                name: "demo2",
+                count: 0
+            }
+        },
+        methods: {
+            change() {
+                this.count = ++this.count
+            }
+        }
+    }
+    var vm = new Vue({
+        el: "#app",
+        data: {
+            show: true,
+            aa: "123"
+        },
+        methods: {
+            ch() {
+                // this.show = !this.show
+                this.aa = "456";
+            }
+        },
+        components: {
+            Demo1,
+            Demo2
+        }
+    });
+</script>

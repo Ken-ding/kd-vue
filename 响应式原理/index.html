@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+    <script src="../vue/dist/vue.js"></script>
+</head>
+
+<body>
+    <div id="app">
+        <div>{{msg}}</div>
+        <div>{{msg1}}</div>
+        <button @click="change">改变</button>
+    </div>
+</body>
+
+</html>
+<script>
+    var vm = new Vue({
+        functional: true,
+        el: "#app",
+        data: {
+            msg: 0,
+            msg1: 1
+        },
+        mounted() {
+            this.$nextTick(() => {
+                this.msg = 4;
+                this.$nextTick(() => {
+                    this.msg = 6;
+                })
+            })
+        },
+        methods: {
+            change() {
+                this.msg = ++this.msg;
+            }
+        }
+    });
+</script>
