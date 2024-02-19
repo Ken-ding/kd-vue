@@ -67,3 +67,35 @@ const { proxy, revoke } = Proxy.revocable(obj3, {
 console.log(obj3.name);
 revoke();
 console.log(obj3.name);
+
+//set
+let validator = {
+	set: function (target, propKey, value, receiver) {
+		if (prop === 'age') {
+			if (!Number.isInteger(value)) {
+				throw new TypeError('The age is not an integer');
+			}
+			if (value > 200) {
+				throw new RangeError('The age seems invalid');
+			}
+		}
+		Reflect.set(target, propKey, value, receiver);
+	}
+};
+
+let obj4 = new Proxy({}, validator);
+// person.age = 100;
+// person.age = 'young';
+// person.age = 300;
+
+//apply
+let target = function () {
+	return 'I am the target';
+};
+let handler = {
+	apply: function () {
+		return 'I am the proxy';
+	}
+};
+let obj5 = new Proxy(target, handler);
+console.log(obj5());
