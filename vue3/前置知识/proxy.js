@@ -93,9 +93,34 @@ let target = function () {
 	return 'I am the target';
 };
 let handler = {
-	apply: function () {
+	apply: function (target, ctx, args) {
+		console.log(ctx);
 		return 'I am the proxy';
 	}
 };
 let obj5 = new Proxy(target, handler);
 console.log(obj5());
+
+//has
+let handler6 = {
+	has(target, key) {
+		if (key[0] === '_') {
+			return false;
+		}
+		return key in target;
+	}
+};
+let target6 = { _prop: 'foo', prop: 'foo' };
+let obj6 = new Proxy(target, handler6);
+console.log('_prop' in obj6);
+
+//construct
+let obj7 = new Proxy(function () {}, {
+	construct: function (target, args) {
+		console.log('called: ' + args.join(', '));
+		return { value: args[0] * 10 };
+	}
+});
+console.log(new obj7(1).value);
+
+//deleteProperty
