@@ -124,3 +124,44 @@ let obj7 = new Proxy(function () {}, {
 console.log(new obj7(1).value);
 
 //deleteProperty
+let handler8 = {
+	deleteProperty(target, key) {
+		if (key[0] === '_') {
+			throw new Error(`Invalid attempt to delete private "${key}" property`);
+		}
+		delete target[key];
+		return true;
+	}
+};
+
+let target8 = { _prop: 'foo' };
+let obj8 = new Proxy(target8, handler8);
+try {
+	delete obj8._prop;
+} catch (error) {}
+
+//defineProperty
+let obj9 = {};
+let obj10 = new Proxy(obj9, {
+	defineProperty(target, key, descriptor) {
+		console.log(key, 'obj9');
+		return true;
+	}
+});
+
+var desc = { configurable: true, enumerable: true, value: 10 };
+Object.defineProperty(obj10, 'a', desc);
+
+//getOwnPropertyDescriptor
+var obj11 = new Proxy(
+	{ a: 20 },
+	{
+		getOwnPropertyDescriptor: function (target, prop) {
+			console.log('called: ' + prop);
+			return { configurable: true, enumerable: true, value: 10 };
+		}
+	}
+);
+
+console.log(Object.getOwnPropertyDescriptor(obj11, 'a').value); // "called: a"; output 10
+
