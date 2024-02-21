@@ -165,3 +165,26 @@ var obj11 = new Proxy(
 
 console.log(Object.getOwnPropertyDescriptor(obj11, 'a').value); // "called: a"; output 10
 
+const target12 = {
+	m: function () {
+		console.log(this === proxy12);
+	}
+};
+const handler12 = {};
+const proxy12 = new Proxy(target12, handler12);
+console.log(target12.m()); // false
+console.log(proxy12.m()); // true
+
+const _name = new WeakMap();
+class Person {
+	constructor(name) {
+		_name.set(this, name);
+	}
+	get name() {
+		return _name.get(this);
+	}
+}
+const jane = new Person('Jane');
+jane.name; // 'Jane'
+const proxy13 = new Proxy(jane, {});
+console.log(proxy13.name, '13'); // undefined
