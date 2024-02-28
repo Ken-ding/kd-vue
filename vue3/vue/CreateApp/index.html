@@ -7,17 +7,23 @@
 		<script src="../dist/vue.js"></script>
 	</head>
 	<body>
-		<div id="app">{{message}}</div>
+		<div id="app">{{message}},{{obj.msg}},{{obj1}}</div>
 	</body>
 </html>
 <script type="module">
-	const HelloVueApp = {
+	const { reactive, ref } = Vue;
+	const HelloVueApp = Vue.defineComponent({
 		data() {
 			return {
 				message: 'Hello Vue!'
 			};
+		},
+		setup(props) {
+			const obj = reactive({ msg: '1234' });
+			debugger
+			const obj1 = ref(1);
+			return { obj };
 		}
-	};
-  debugger
+	});
 	Vue.createApp(HelloVueApp).mount('#app');
 </script>
